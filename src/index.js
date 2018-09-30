@@ -7,9 +7,25 @@ module.exports = function check(str, bracketsConfig) {
   
   for (i = 0; i < symbols.length; i++) {
       var curSym  = symbols[i];
-      if (curSym === '(' || curSym === '[' || curSym === '{' || curSym === '1' || curSym === '3' || curSym === '5' || curSym === '7' || curSym === '8') {
+      if (curSym === '(' || curSym === '[' || curSym === '{' || curSym === '1' || curSym === '3' || curSym === '5') {
           openBracketsStack.push(curSym);
-      } else if (curSym === ')' || curSym === ']' || curSym === '}' || curSym === '2' || curSym === '4' || curSym === '6' || curSym === '7' || curSym === '8') {
+      } else if(curSym === '|' ){
+          var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
+        if(lastOpenBracket!='|' || i==0)
+        openBracketsStack.push(curSym);
+        else if(lastOpenBracket==='|') openBracketsStack.pop();
+      } else if(curSym === '7' ){
+          var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
+        if(lastOpenBracket!='7' || i==0)
+        openBracketsStack.push(curSym);
+        else if(lastOpenBracket==='7') openBracketsStack.pop();
+      } else if(curSym === '8' ){
+          var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
+        if(lastOpenBracket!='8' || i==0)
+        openBracketsStack.push(curSym);
+        else if(lastOpenBracket==='8') openBracketsStack.pop();
+      
+      } else if (curSym === ')' || curSym === ']' || curSym === '}' || curSym === '2' || curSym === '4' || curSym === '6') {
           if (openBracketsStack.length > 0) {
               if (curSym === ')') {
                   var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
@@ -53,21 +69,6 @@ module.exports = function check(str, bracketsConfig) {
                   } else {
                       result = false;
                   }
-              } else if (curSym === '7') {
-                  var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
-                  if (lastOpenBracket === '7') {
-                      openBracketsStack.pop();
-                  } else {
-                      result = false;
-                  }
-              } else if (curSym === '8') {
-                  var lastOpenBracket = openBracketsStack[openBracketsStack.length - 1];
-                  if (lastOpenBracket === '8') {
-                      openBracketsStack.pop();
-                  } else {
-                      result = false;
-                  }
-
               }
           } else {
               result = false;
